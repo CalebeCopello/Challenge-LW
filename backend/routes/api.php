@@ -10,7 +10,7 @@ Route::post('/login', function(Request $request){
     $credentials = $request->only(['email', 'password']);
 
     if (!$token = auth()->attempt($credentials)) {
-        return response()->json(['message' => 'Email ou senha invalido'], 401);
+        return response()->json(['message' => 'Email ou senha inválidos'], 401);
     }
     return response()->json(['data' =>[
         'token' => $token,
