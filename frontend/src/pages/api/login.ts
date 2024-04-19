@@ -1,6 +1,6 @@
-// src/pages/api/login.ts
-
 import { NextApiRequest, NextApiResponse } from 'next'
+
+
 
 export default async function handler(
 	req: NextApiRequest,
@@ -20,6 +20,7 @@ export default async function handler(
 
 		if (response.ok) {
 			res.status(response.status).json(data)
+
 		} else {
 			console.error('Erro ao fazer login:', data)
 			res.status(response.status).json(data)

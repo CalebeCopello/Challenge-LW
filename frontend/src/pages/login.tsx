@@ -1,18 +1,21 @@
 'use client'
 
 import { useState } from 'react'
-import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 import { TextInput, Button, Spinner, Alert } from 'flowbite-react'
 import { GrCircleAlert } from 'react-icons/gr'
+import Cookies from 'js-cookie'
+import jwt from 'jsonwebtoken'
 import '../app/globals.css'
 
 export default function Login() {
+	const router = useRouter()
+
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [loading, setLoading] = useState<boolean>(false)
 	const [msg, setMsg] = useState('')
 	const [alert, setAlert] = useState<string>('')
-
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		try {
@@ -27,11 +30,9 @@ export default function Login() {
 
 			const data = await response.json()
 			if (response.ok) {
-				console.log(data)
 				const token = data.data.token
-				Cookies.set('token-lw', token, { expires: 30 })
-				setMsg('Logado com Sucesso!')
-				setAlert('info')
+				Cookies.set('tokenLw', token, { expires: 30 })
+				router.push('/dashboard')
 			} else {
 				setMsg(`Erro ao fazer login: ${data.message}`)
 				setAlert('failure')
